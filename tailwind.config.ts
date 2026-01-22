@@ -47,15 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+        neon: {
+          purple: "hsl(var(--neon-purple))",
+          cyan: "hsl(var(--neon-cyan))",
+          pink: "hsl(var(--neon-pink))",
+          blue: "hsl(var(--neon-blue))",
         },
       },
       borderRadius: {
@@ -66,6 +62,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       keyframes: {
         "accordion-down": {
@@ -80,16 +77,30 @@ export default {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
-        "slide-in": {
-          from: { opacity: "0", transform: "translateX(-20px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(100px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "rotate-slow": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "morph": {
+          "0%, 100%": { borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%" },
+          "50%": { borderRadius: "30% 60% 70% 40% / 50% 60% 30% 60%" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.6s ease-out forwards",
-        "slide-in": "slide-in 0.6s ease-out forwards",
+        "slide-up": "slide-up 0.8s ease-out forwards",
+        "rotate-slow": "rotate-slow 20s linear infinite",
+        "morph": "morph 8s ease-in-out infinite",
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },
