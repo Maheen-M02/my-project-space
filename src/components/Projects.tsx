@@ -5,26 +5,34 @@ import { ExternalLink, Github } from "lucide-react";
 
 const projects = [
   {
-    title: "EcoTrack App",
-    description: "A mobile app that helps users track their carbon footprint and suggests eco-friendly alternatives for daily activities.",
-    tags: ["React Native", "Firebase", "TypeScript"],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop",
+    title: "NagarVani – AI Civic Grievance Platform",
+    description: "Multi-channel civic grievance system (Web + Voice via Vapi + WhatsApp) with AI-based complaint classification using NLP & CLIP image analysis. Features smart triaging, duplicate detection, and priority assignment — reducing manual work by ~80%.",
+    tags: ["React", "Python", "NLP", "CLIP", "Vapi", "WhatsApp API"],
+    image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=400&fit=crop",
     github: "#",
     demo: "#",
   },
   {
-    title: "StudySync Platform",
-    description: "Collaborative study platform for students to share notes, create flashcards, and join virtual study groups.",
-    tags: ["Next.js", "PostgreSQL", "Tailwind"],
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
+    title: "Factory Raw Material Management",
+    description: "Full-stack system tracking raw materials, cost, usage, stock, and production capacity with automatic profit/loss calculation. Supports multiple materials per product and includes a built-in AI assistant with voice interaction.",
+    tags: ["Next.js", "PostgreSQL", "AI Assistant", "Voice UI"],
+    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=400&fit=crop",
     github: "#",
     demo: "#",
   },
   {
-    title: "AI Writing Assistant",
-    description: "Chrome extension powered by GPT that helps improve writing quality with grammar checks and style suggestions.",
-    tags: ["JavaScript", "OpenAI API", "Chrome API"],
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+    title: "Agent Hub – Multi-Agent AI Platform",
+    description: "Orchestration platform that coordinates multiple AI agents (planner, executor, analyzer) to autonomously break down tasks, assign subtasks, and execute them. Integrates APIs, external tools, and persistent memory.",
+    tags: ["Python", "LangChain", "FastAPI", "React", "Redis"],
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=400&fit=crop",
+    github: "#",
+    demo: "#",
+  },
+  {
+    title: "Logistics Management System",
+    description: "End-to-end logistics platform tracking shipment flow, inventory movement, and delivery status with AI-optimized routing and dispatching. Includes a real-time analytics dashboard for supply chain efficiency.",
+    tags: ["React", "Node.js", "MongoDB", "Maps API", "AI Routing"],
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop",
     github: "#",
     demo: "#",
   },
@@ -51,7 +59,7 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
