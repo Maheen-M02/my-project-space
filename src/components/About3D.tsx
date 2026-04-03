@@ -6,16 +6,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: 'React / Next.js', level: 95, color: 'from-neon-purple to-neon-pink' },
-  { name: 'Three.js / WebGL', level: 85, color: 'from-neon-cyan to-neon-blue' },
-  { name: 'TypeScript', level: 90, color: 'from-neon-pink to-neon-purple' },
-  { name: 'Node.js', level: 80, color: 'from-neon-blue to-neon-cyan' },
-  { name: 'UI/UX Design', level: 75, color: 'from-neon-purple to-neon-cyan' },
+  { name: 'React / Next.js', level: 90, color: 'from-neon-purple to-neon-pink' },
+  { name: 'Node.js / Backend Systems', level: 85, color: 'from-neon-cyan to-neon-blue' },
+  { name: 'AI Integration (NLP/CV)', level: 88, color: 'from-neon-pink to-neon-purple' },
+  { name: 'AWS / Cloud Deployment', level: 80, color: 'from-neon-blue to-neon-cyan' },
+  { name: 'Database Design (PostgreSQL)', level: 80, color: 'from-neon-purple to-neon-cyan' },
+  { name: 'System Design & Architecture', level: 82, color: 'from-neon-cyan to-neon-pink' },
+  { name: 'UI/UX Thinking', level: 70, color: 'from-neon-pink to-neon-blue' },
 ];
 
 const technologies = [
-  'React', 'Three.js', 'GSAP', 'TypeScript', 'Node.js', 
-  'WebGL', 'Framer Motion', 'Tailwind', 'PostgreSQL', 'GraphQL'
+  'React', 'Next.js', 'TypeScript', 'Node.js / Express', 
+  'Supabase', 'PostgreSQL', 'AWS (EC2, S3, Lambda)',
+  'Gemini AI', 'Computer Vision', 'REST APIs', 'System Design'
 ];
 
 const About3D = () => {
@@ -87,17 +90,20 @@ const About3D = () => {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 gradient-border" />
               
               <h3 className="text-2xl font-bold mb-6">
-                Creative Developer & Designer
+                AI Developer & Systems Builder
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                I'm a third-year Computer Science student with an obsession for creating 
-                immersive digital experiences. I specialize in bridging the gap between 
-                design and development, turning creative visions into interactive reality.
+                I'm Maheen Meshram, a third-year Computer Science student focused on building 
+                intelligent, real-world systems that solve meaningful problems. I specialize 
+                in combining AI, full-stack development, and scalable cloud architecture to 
+                create products that are not just functional—but impactful.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-8">
-                When I'm not pushing pixels or writing code, you'll find me exploring 
-                the latest in WebGL, contributing to open source, or experimenting with 
-                generative art.
+                From developing AI-powered platforms like NagarVani to building logistics 
+                and material management systems, I enjoy turning complex ideas into scalable, 
+                production-ready solutions. When I'm not coding, I'm exploring applied AI, 
+                experimenting with automation, or building systems aligned with smart cities 
+                and real-world efficiency.
               </p>
 
               {/* Tech tags */}

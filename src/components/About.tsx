@@ -3,11 +3,13 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const skills = [
-  { name: "React", level: 90 },
-  { name: "TypeScript", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "Node.js", level: 75 },
-  { name: "UI/UX Design", level: 70 },
+  { name: "React / Next.js", level: 90 },
+  { name: "Node.js / Backend Systems", level: 85 },
+  { name: "AI Integration (NLP/CV)", level: 88 },
+  { name: "AWS / Cloud Deployment", level: 80 },
+  { name: "Database Design (PostgreSQL)", level: 80 },
+  { name: "System Design & Architecture", level: 82 },
+  { name: "UI/UX Thinking", level: 70 },
 ];
 
 const About = () => {
@@ -28,17 +30,20 @@ const About = () => {
               About Me
             </p>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-              Turning coffee into code since 2020
+              AI Developer & Systems Builder
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              I'm a third-year Computer Science student with a deep love for building 
-              things that live on the internet. From interactive websites to mobile apps, 
-              I enjoy creating digital solutions that solve real problems.
+              I'm Maheen Meshram, a third-year Computer Science student focused on building 
+              intelligent, real-world systems that solve meaningful problems. I specialize 
+              in combining AI, full-stack development, and scalable cloud architecture to 
+              create products that are not just functional—but impactful.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              When I'm not coding, you'll find me exploring new technologies, 
-              contributing to open-source projects, or enjoying a good cup of coffee 
-              while reading about the latest in tech.
+              From developing AI-powered platforms like NagarVani to building logistics 
+              and material management systems, I enjoy turning complex ideas into scalable, 
+              production-ready solutions. When I'm not coding, I'm exploring applied AI, 
+              experimenting with automation, or building systems aligned with smart cities 
+              and real-world efficiency.
             </p>
           </div>
           
