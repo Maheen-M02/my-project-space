@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="py-8 px-6 border-t border-border">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-muted-foreground text-sm">
-          © {currentYear} Alex Chen. Built with passion.
+          © {currentYear} Maheen Meshram. Built with passion.
         </p>
         <nav className="flex gap-6">
           <a

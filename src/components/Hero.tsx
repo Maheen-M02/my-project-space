@@ -28,7 +28,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
         >
-          Alex <span className="text-gradient">Chen</span>
+           <span className="text-gradient">Jugaadify</span>
         </motion.h1>
         
         <motion.p

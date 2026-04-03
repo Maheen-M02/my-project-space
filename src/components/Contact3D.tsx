@@ -3,10 +3,10 @@ import { motion, useInView } from 'framer-motion';
 import { Mail, Github, Linkedin, Twitter, Send, CheckCircle } from 'lucide-react';
 
 const socials = [
-  { name: 'Email', icon: Mail, href: 'mailto:alex@example.com', color: 'hover:text-neon-purple' },
-  { name: 'GitHub', icon: Github, href: '#', color: 'hover:text-neon-cyan' },
-  { name: 'LinkedIn', icon: Linkedin, href: '#', color: 'hover:text-neon-blue' },
-  { name: 'Twitter', icon: Twitter, href: '#', color: 'hover:text-neon-pink' },
+  { name: 'Email', icon: Mail, href: 'mailto:maheenmeshram.2115@gmail.com', color: 'hover:text-neon-purple' },
+  { name: 'GitHub', icon: Github, href: 'https://github.com/Maheen-M02', color: 'hover:text-neon-cyan' },
+  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/maheen-meshram-965066284/', color: 'hover:text-neon-blue' },
+  { name: 'X', icon: Twitter, href: 'https://x.com/maheenmeshram02', color: 'hover:text-neon-pink' },
 ];
 
 const Contact3D = () => {
@@ -203,7 +203,7 @@ const Contact3D = () => {
 
               <div className="mt-8 pt-8 border-t border-border relative">
                 <p className="text-muted-foreground">
-                  <span className="text-primary font-mono">{'>'}</span> Based in San Francisco, CA
+                  <span className="text-primary font-mono">{'>'}</span> Based in Pune, India
                 </p>
                 <p className="text-muted-foreground mt-2">
                   <span className="text-primary font-mono">{'>'}</span> Available for freelance & internships

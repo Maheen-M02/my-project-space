@@ -13,7 +13,7 @@ const Footer3D = () => {
           {/* Logo & Copyright */}
           <div className="flex items-center gap-4">
             <span className="text-xl font-bold">
-              AC<span className="text-neon">.</span>
+              MM<span className="text-neon">.</span>
             </span>
             <span className="text-muted-foreground text-sm">
               © {currentYear} All rights reserved

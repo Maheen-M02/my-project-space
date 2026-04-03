@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { Mail, Github, Linkedin, Twitter } from "lucide-react";
 
 const socials = [
-  { name: "Email", icon: Mail, href: "mailto:alex@example.com", label: "alex@example.com" },
-  { name: "GitHub", icon: Github, href: "https://github.com", label: "@alexchen" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com", label: "Alex Chen" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com", label: "@alexchen_dev" },
+  { name: "Email", icon: Mail, href: "mailto:maheenmeshram.2115@gmail.com", label: "maheenmeshram.2115@gmail.com" },
+  { name: "GitHub", icon: Github, href: "https://github.com/Maheen-M02", label: "@Maheen-M02" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/maheen-meshram-965066284/", label: "Maheen Meshram" },
+  { name: "X", icon: Twitter, href: "https://x.com/maheenmeshram02", label: "@maheenmeshram02" },
 ];
 
 const Contact = () => {

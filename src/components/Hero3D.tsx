@@ -88,7 +88,7 @@ const Hero3D = () => {
 
           <div ref={textRef} className="overflow-hidden mb-4">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none">
-              {splitText("Alex Chen")}
+              {splitText("Maheen Meshram")}
             </h1>
           </div>
 
@@ -98,7 +98,7 @@ const Hero3D = () => {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-neon mb-8"
           >
-            Creative Developer
+            Full Stack Developer
           </motion.h2>
 
           <motion.p

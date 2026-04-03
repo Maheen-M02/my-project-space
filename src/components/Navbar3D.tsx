@@ -46,7 +46,7 @@ const Navbar3D = () => {
             whileHover={{ scale: 1.05 }}
           >
             <span className="text-2xl font-bold tracking-tight">
-              AC<span className="text-neon">.</span>
+              MM<span className="text-neon">.</span>
             </span>
             <div className="absolute -inset-2 bg-primary/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.a>
