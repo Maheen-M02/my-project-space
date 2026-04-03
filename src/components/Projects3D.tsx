@@ -40,10 +40,10 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
           {/* Gradient overlay */}
-          <div 
+          <div
             className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-60 mix-blend-multiply transition-opacity duration-500 group-hover:opacity-40`}
           />
-          
+
           {/* Hover overlay with links */}
           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center gap-6">
             <motion.a
@@ -91,7 +91,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
         {/* Animated border */}
         <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div 
+          <div
             className="absolute inset-0 rounded-2xl"
             style={{
               background: 'linear-gradient(90deg, transparent, hsl(270 100% 65% / 0.3), transparent)',
@@ -111,8 +111,8 @@ const projects = [
     description: 'Multi-channel civic grievance system (Web + Voice via Vapi + WhatsApp) with AI-based complaint classification using NLP & CLIP. Smart triaging, duplicate detection, and priority assignment — reducing manual work by ~80%.',
     tags: ['React', 'Python', 'NLP', 'CLIP', 'Vapi', 'WhatsApp API'],
     image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&h=500&fit=crop',
-    github: '#',
-    demo: '#',
+    github: 'https://github.com/Maheen-M02/NAGARVANI-THE_CIVIC_SYSTEM.git',
+    demo: 'https://nagarvani-the-civic-system.vercel.app/',
     gradient: 'from-emerald-900 to-teal-900',
   },
   {
@@ -120,7 +120,7 @@ const projects = [
     description: 'Full-stack system tracking raw materials, cost, usage, stock, and production capacity with automatic profit/loss calculation. Multi-material product support and a built-in AI voice assistant.',
     tags: ['Next.js', 'PostgreSQL', 'AI Assistant', 'Voice UI'],
     image: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=500&fit=crop',
-    github: '#',
+    github: 'https://github.com/Maheen-M02/NexStock_Next-Gen-Inventory-Intelligence_System.git',
     demo: '#',
     gradient: 'from-orange-900 to-amber-900',
   },
@@ -129,7 +129,7 @@ const projects = [
     description: 'Orchestration platform coordinating multiple AI agents (planner, executor, analyzer) that autonomously break down tasks, assign subtasks, and execute them using integrated APIs, tools, and memory.',
     tags: ['Python', 'LangChain', 'FastAPI', 'React', 'Redis'],
     image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=500&fit=crop',
-    github: '#',
+    github: 'https://github.com/Maheen-M02/Agent_Hub.git',
     demo: '#',
     gradient: 'from-purple-900 to-violet-900',
   },
@@ -138,7 +138,7 @@ const projects = [
     description: 'End-to-end logistics platform tracking shipment flow, inventory movement, and delivery status with AI-optimized routing and dispatching. Includes a real-time analytics dashboard for supply chain efficiency.',
     tags: ['React', 'Node.js', 'MongoDB', 'Maps API', 'AI Routing'],
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=500&fit=crop',
-    github: '#',
+    github: 'https://github.com/Maheen-M02/Logistics_Intelligence_System.git',
     demo: '#',
     gradient: 'from-cyan-900 to-blue-900',
   },
@@ -175,7 +175,7 @@ const Projects3D = () => {
             Featured <span className="text-neon">Work</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            A selection of projects that showcase my passion for creating 
+            A selection of projects that showcase my passion for creating
             immersive, interactive digital experiences.
           </p>
         </motion.div>
