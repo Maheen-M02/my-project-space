@@ -9,74 +9,74 @@ interface RobotCanvasProps {
 }
 
 const RobotCanvas = forwardRef<RobotCanvasHandle, RobotCanvasProps>(({ onReady }, ref) => {
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const videoRef   = useRef<HTMLVideoElement>(null);
-  const rafRef     = useRef<number>(0);
-  const readyRef   = useRef(false);
-  const progressRef = useRef(0);
+  const canvasRef   = useRef<HTMLCanvasElement>(null);
+  const videoRef    = useRef<HTMLVideoElement>(null);
+  const readyRef    = useRef(false);
+  const rafRef      = useRef<number>(0);
+  const seekingRef  = useRef(false);
+  const nextTimeRef = useRef<number | null>(null); // pending seek target
 
-  // Draw current video frame onto canvas
-  const paint = () => {
-    const canvas = canvasRef.current;
-    const video  = videoRef.current;
-    if (!canvas || !video || video.readyState < 2) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const vw = video.videoWidth  || 1920;
-    const vh = video.videoHeight || 1080;
-
-    // cover fit
-    const scale = Math.max(cw / vw, ch / vh);
-    const dw = vw * scale;
-    const dh = vh * scale;
-    const dx = (cw - dw) / 2;
-    const dy = (ch - dh) / 2;
-
-    ctx.clearRect(0, 0, cw, ch);
-    ctx.drawImage(video, dx, dy, dw, dh);
+  // Continuous paint loop — draws whatever frame the video is on right now
+  const startPaintLoop = () => {
+    const loop = () => {
+      const canvas = canvasRef.current;
+      const video  = videoRef.current;
+      if (canvas && video && video.readyState >= 2) {
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          const cw = canvas.width;
+          const ch = canvas.height;
+          const vw = video.videoWidth  || 1920;
+          const vh = video.videoHeight || 1080;
+          const scale = Math.max(cw / vw, ch / vh);
+          const dw = vw * scale;
+          const dh = vh * scale;
+          ctx.drawImage(video, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+        }
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
   };
 
-  // Resize canvas to fill screen
+  // Resize canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const resize = () => {
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
-      paint();
     };
-
     resize();
     window.addEventListener('resize', resize);
     return () => window.removeEventListener('resize', resize);
   }, []);
 
-  // Set up video — hidden, just used as a decode source
+  // Video setup
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     const onMeta = () => {
       readyRef.current = true;
-      onReady?.();
-      // Seek to frame 0 and paint immediately
       video.currentTime = 0;
+      startPaintLoop();
+      onReady?.();
     };
 
-    // After each seek completes, paint the frame
+    // When a seek finishes, immediately kick off the next pending seek
     const onSeeked = () => {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(paint);
+      seekingRef.current = false;
+      if (nextTimeRef.current !== null) {
+        const t = nextTimeRef.current;
+        nextTimeRef.current = null;
+        seekingRef.current = true;
+        video.currentTime = t;
+      }
     };
 
     video.addEventListener('loadedmetadata', onMeta);
     video.addEventListener('seeked', onSeeked);
-
     if (video.readyState >= 1) onMeta();
 
     return () => {
@@ -89,22 +89,22 @@ const RobotCanvas = forwardRef<RobotCanvasHandle, RobotCanvasProps>(({ onReady }
   useImperativeHandle(ref, () => ({
     seekTo(progress: number) {
       const video = videoRef.current;
-      if (!video || !readyRef.current || video.readyState < 1) return;
+      if (!video || !readyRef.current) return;
 
-      progressRef.current = progress;
-      const target = progress * video.duration;
+      const target = Math.max(0, Math.min(progress, 1)) * video.duration;
 
-      // Only seek if delta is meaningful (avoids redundant decodes)
-      if (Math.abs(video.currentTime - target) > 0.001) {
+      if (seekingRef.current) {
+        // Already seeking — queue this as the next target (drop intermediate ones)
+        nextTimeRef.current = target;
+      } else {
+        seekingRef.current = true;
         video.currentTime = target;
-        // paint() fires via the 'seeked' event
       }
     },
   }));
 
   return (
     <>
-      {/* Hidden video — decode source only */}
       <video
         ref={videoRef}
         preload="auto"
@@ -115,8 +115,6 @@ const RobotCanvas = forwardRef<RobotCanvasHandle, RobotCanvasProps>(({ onReady }
         <source src="/robot.webm" type="video/webm" />
         <source src="/robot.mp4"  type="video/mp4"  />
       </video>
-
-      {/* Canvas — what the user actually sees */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
