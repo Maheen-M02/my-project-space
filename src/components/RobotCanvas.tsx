@@ -58,9 +58,12 @@ const RobotCanvas = forwardRef<RobotCanvasHandle, RobotCanvasProps>(({ onReady }
     if (!video) return;
 
     const onMeta = () => {
-      readyRef.current = true;
       video.currentTime = 0;
       startPaintLoop();
+    };
+
+    const onCanPlay = () => {
+      readyRef.current = true;
       onReady?.();
     };
 
@@ -76,11 +79,14 @@ const RobotCanvas = forwardRef<RobotCanvasHandle, RobotCanvasProps>(({ onReady }
     };
 
     video.addEventListener('loadedmetadata', onMeta);
+    video.addEventListener('canplaythrough', onCanPlay);
     video.addEventListener('seeked', onSeeked);
     if (video.readyState >= 1) onMeta();
+    if (video.readyState >= 4) onCanPlay();
 
     return () => {
       video.removeEventListener('loadedmetadata', onMeta);
+      video.removeEventListener('canplaythrough', onCanPlay);
       video.removeEventListener('seeked', onSeeked);
       cancelAnimationFrame(rafRef.current);
     };
