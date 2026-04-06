@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const TOTAL_FRAMES = 192;
+const SUPABASE_URL = 'https://iykjhhcutgmfaohlwlap.supabase.co';
+const FRAME_BASE   = `${SUPABASE_URL}/storage/v1/object/public/frames`;
 
 interface RobotLoaderProps {
   onComplete: (images: HTMLImageElement[]) => void;
@@ -15,7 +17,7 @@ const RobotLoader = ({ onComplete }: RobotLoaderProps) => {
 
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
-      img.src = `/frames/frame_${String(i).padStart(4, '0')}.png`;
+      img.src = `${FRAME_BASE}/frame_${String(i).padStart(4, '0')}.png`;
       img.onload = img.onerror = () => {
         loaded++;
         setProgress(loaded);

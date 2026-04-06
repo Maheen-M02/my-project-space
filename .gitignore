@@ -15,6 +15,9 @@ dist-ssr
 # Raw frame images — replaced by robot.webm / robot.mp4
 public/frames/
 
+# Upload script (contains secrets)
+scripts/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
