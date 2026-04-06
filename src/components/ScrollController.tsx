@@ -66,8 +66,8 @@ const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
 
   useEffect(() => {
     const onScroll = () => {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(handleScroll);
+      // Call directly — no rAF batching, we want every scroll event to seek immediately
+      handleScroll();
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     handleScroll();
