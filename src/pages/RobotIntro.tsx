@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import RobotLoader from '@/components/RobotLoader';
 import ScrollController from '@/components/ScrollController';
 import Navbar3D from '@/components/Navbar3D';
 import About3D from '@/components/About3D';
@@ -8,10 +9,13 @@ import Footer3D from '@/components/Footer3D';
 import CursorBlob from '@/components/CursorBlob';
 
 const RobotIntro = () => {
+  const [ready, setReady]             = useState(false);
   const [animComplete, setAnimComplete] = useState(false);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
 
-  const handleAnimationComplete = useCallback((complete: boolean) => {
-    setAnimComplete(complete);
+  const handleLoadComplete = useCallback((images: HTMLImageElement[]) => {
+    imagesRef.current = images;
+    setReady(true);
   }, []);
 
   return (
@@ -19,13 +23,16 @@ const RobotIntro = () => {
       <div className="noise" />
       <CursorBlob />
 
-      <ScrollController onAnimationComplete={handleAnimationComplete} />
+      {!ready && <RobotLoader onComplete={handleLoadComplete} />}
 
-      {/* Portfolio — fades in after animation zone */}
-      <div
-        className="transition-opacity duration-1000"
-        style={{ opacity: animComplete ? 1 : 0 }}
-      >
+      {ready && (
+        <ScrollController
+          images={imagesRef.current}
+          onAnimationComplete={setAnimComplete}
+        />
+      )}
+
+      <div className="transition-opacity duration-1000" style={{ opacity: animComplete ? 1 : 0 }}>
         <Navbar3D />
         <main>
           <About3D />
