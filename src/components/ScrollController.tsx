@@ -5,36 +5,52 @@ interface ScrollControllerProps {
   onAnimationComplete: (complete: boolean) => void;
 }
 
-const FRAME_SCROLL = typeof window !== 'undefined' ? window.innerHeight * 4 : 4000;
-const HERO_SCROLL  = typeof window !== 'undefined' ? window.innerHeight * 1.5 : 1500;
-const TOTAL_SCROLL = FRAME_SCROLL + HERO_SCROLL;
+// Computed lazily so window.innerHeight is always correct
+const getScrollDistances = () => {
+  const vh = window.innerHeight;
+  return {
+    frameScroll: vh * 4,   // scroll distance to play full video
+    heroScroll:  vh * 1.5, // extra scroll for hero text reveal
+  };
+};
 
 const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
-  const sentinelRef   = useRef<HTMLDivElement>(null);
-  const canvasRef     = useRef<RobotCanvasHandle>(null);
-  const rafRef        = useRef<number>(0);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const canvasRef   = useRef<RobotCanvasHandle>(null);
+  const rafRef      = useRef<number>(0);
+  const distRef     = useRef({ frameScroll: 0, heroScroll: 0, total: 0 });
 
   const [showHint,      setShowHint]      = useState(true);
   const [blackOpacity,  setBlackOpacity]  = useState(0);
   const [textProgress,  setTextProgress]  = useState(0);
   const [canvasVisible, setCanvasVisible] = useState(true);
+  const [videoReady,    setVideoReady]    = useState(false);
+
+  // Compute distances once on mount
+  useEffect(() => {
+    const { frameScroll, heroScroll } = getScrollDistances();
+    distRef.current = { frameScroll, heroScroll, total: frameScroll + heroScroll };
+  }, []);
 
   const handleScroll = useCallback(() => {
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
 
+    const { frameScroll, heroScroll, total } = distRef.current;
+    if (!total) return;
+
     const containerTop = sentinel.getBoundingClientRect().top + window.scrollY;
-    const scrolled     = window.scrollY - containerTop;
+    const scrolled     = Math.max(0, window.scrollY - containerTop);
 
     if (window.scrollY > 10) setShowHint(false);
 
     // ── Phase 1: seek video ───────────────────────────────────────────
-    const frameProgress = Math.max(0, Math.min(scrolled / FRAME_SCROLL, 1));
+    const frameProgress = Math.min(scrolled / frameScroll, 1);
     canvasRef.current?.seekTo(frameProgress);
 
-    // ── Phase 2: black screen + hero text ────────────────────────────
-    if (scrolled > FRAME_SCROLL) {
-      const hp = Math.min((scrolled - FRAME_SCROLL) / HERO_SCROLL, 1);
+    // ── Phase 2: black + hero text ────────────────────────────────────
+    if (scrolled > frameScroll) {
+      const hp = Math.min((scrolled - frameScroll) / heroScroll, 1);
       setBlackOpacity(Math.min(hp / 0.3, 1));
       setTextProgress(hp > 0.3 ? Math.min((hp - 0.3) / 0.7, 1) : 0);
     } else {
@@ -43,7 +59,7 @@ const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
     }
 
     // ── Unmount overlay once past entire zone ─────────────────────────
-    const pastZone = scrolled > TOTAL_SCROLL + window.innerHeight * 0.5;
+    const pastZone = scrolled > total + window.innerHeight * 0.5;
     setCanvasVisible(!pastZone);
     onAnimationComplete(pastZone);
   }, [onAnimationComplete]);
@@ -66,19 +82,41 @@ const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
     return { opacity: t, transform: `translateY(${(1 - t) * 24}px)` };
   };
 
+  const { frameScroll, heroScroll } = distRef.current.total
+    ? distRef.current
+    : getScrollDistances();
+  const totalScroll = frameScroll + heroScroll;
+
   return (
     <>
       {canvasVisible && (
         <div className="fixed inset-0 z-40">
-          {/* Video */}
           <div className="absolute inset-0 bg-black">
-            <RobotCanvas ref={canvasRef} />
+            <RobotCanvas
+              ref={canvasRef}
+              onReady={() => setVideoReady(true)}
+            />
             {/* vignette */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.65) 100%)' }}
             />
           </div>
+
+          {/* Video loading indicator */}
+          {!videoReady && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black pointer-events-none">
+              <div className="w-48 h-px bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full animate-pulse"
+                  style={{ background: 'linear-gradient(90deg, hsl(270 100% 65%), hsl(180 100% 50%))', width: '60%' }}
+                />
+              </div>
+              <p className="font-mono text-[0.6rem] tracking-[0.3em] text-white/30 uppercase mt-4">
+                Loading
+              </p>
+            </div>
+          )}
 
           {/* Black fade overlay */}
           <div
@@ -143,7 +181,7 @@ const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
           )}
 
           {/* Scroll hint */}
-          {showHint && blackOpacity === 0 && (
+          {showHint && videoReady && blackOpacity === 0 && (
             <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
               <p className="font-mono text-[0.65rem] tracking-[0.3em] text-white/50 uppercase">
                 Scroll to activate
@@ -155,7 +193,7 @@ const ScrollController = ({ onAnimationComplete }: ScrollControllerProps) => {
       )}
 
       {/* Scroll spacer */}
-      <div ref={sentinelRef} style={{ height: `calc(100vh + ${TOTAL_SCROLL}px)` }} />
+      <div ref={sentinelRef} style={{ height: `calc(100vh + ${totalScroll}px)` }} />
     </>
   );
 };
