@@ -1,5 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
-import RobotLoader from '@/components/RobotLoader';
+import { useState, useCallback } from 'react';
 import ScrollController from '@/components/ScrollController';
 import Navbar3D from '@/components/Navbar3D';
 import About3D from '@/components/About3D';
@@ -9,14 +8,7 @@ import Footer3D from '@/components/Footer3D';
 import CursorBlob from '@/components/CursorBlob';
 
 const RobotIntro = () => {
-  const [ready, setReady] = useState(false);
   const [animComplete, setAnimComplete] = useState(false);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-
-  const handleLoadComplete = useCallback((images: HTMLImageElement[]) => {
-    imagesRef.current = images;
-    setReady(true);
-  }, []);
 
   const handleAnimationComplete = useCallback((complete: boolean) => {
     setAnimComplete(complete);
@@ -27,18 +19,9 @@ const RobotIntro = () => {
       <div className="noise" />
       <CursorBlob />
 
-      {/* Preloader */}
-      {!ready && <RobotLoader onComplete={handleLoadComplete} />}
+      <ScrollController onAnimationComplete={handleAnimationComplete} />
 
-      {/* Robot scroll animation */}
-      {ready && (
-        <ScrollController
-          images={imagesRef.current}
-          onAnimationComplete={handleAnimationComplete}
-        />
-      )}
-
-      {/* Portfolio content — always rendered, fades in after animation */}
+      {/* Portfolio — fades in after animation zone */}
       <div
         className="transition-opacity duration-1000"
         style={{ opacity: animComplete ? 1 : 0 }}

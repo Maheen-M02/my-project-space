@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Raw frame images — replaced by robot.webm / robot.mp4
+public/frames/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
